@@ -1,0 +1,7 @@
+.navbar.navbar-fixed-top
+  .navbar-inner
+    .container
+      = link_to 'The Distiller', root_path, {:class => 'brand'}
+      - if current_user
+        %ul.nav.pull-right
+          %li= link_to 'Log Out', destroy_user_session_path, :method => :delete

@@ -1,0 +1,43 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @application.name
+%p
+  %b Business name:
+  = @application.business_name
+
+= form_for @vote, :url => votes_path do |f|
+  = f.hidden_field :application_id, :value => @application.id.to_s
+  .controls
+    = f.label :yes
+    = f.radio_button :vote, 'yes'
+  .controls
+    = f.label :no
+    = f.radio_button :vote, 'no'
+  .controls#no_comment{:style => 'display:none'}
+    = f.label :no_comment, 'Comments (compulsory)'
+    = f.text_area :no_comment
+  .controls
+    = f.submit 'Vote'
+
+#votes
+  %h1 Totals
+  %h4 Yes #{@yes.to_s}
+  %h4 No #{@no.to_s}
+
+  %h2 Vote Details
+  - @application.votes.each do |vote|
+    %h4 Name
+    %p= vote.user.name
+    %h4 Vote
+    - if vote.vote?
+      %p YES
+    - else
+      %p NO
+      %h4 Comments
+      %p= vote.no_comment
+  
+= link_to 'Edit', edit_application_path(@application)
+\|
+= link_to 'Back', applications_path

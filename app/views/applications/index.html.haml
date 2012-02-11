@@ -1,0 +1,20 @@
+.row
+  .span10
+    %h1 Applications
+  .span2
+    = link_to 'New Application', new_application_path, {class: 'btn'}
+%table.table.table-striped
+  %tr
+    %th Name
+    %th Business name
+    %th
+    %th
+    %th
+
+  - @applications.each do |application|
+    %tr
+      %td= application.name
+      %td= application.business_name
+      %td= link_to 'Show', application
+      %td= link_to 'Edit', edit_application_path(application)
+      %td= link_to 'Destroy', application, :confirm => 'Are you sure?', :method => :delete 
